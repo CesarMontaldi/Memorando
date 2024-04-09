@@ -15,7 +15,8 @@ import { state, style, trigger } from '@angular/animations';
       border: '2px solid #B2B6FF'
     })),
     state('highlighted', style({
-      border: '4px solid #B2B6FF'
+      border: '4px solid #B2B6FF',
+      filter: 'brightness(92%)'
     }))
   ])]
 
@@ -25,6 +26,7 @@ export class ListaTarefasComponent implements OnInit {
   formAberto: boolean = false;
   categoria: string = '';
   validado: boolean = false;
+  indexTarefa = -1
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
