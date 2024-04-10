@@ -4,28 +4,28 @@
       "id": 1,
       "descricao": "Ir ao supermercado",
       "categoria": "Casa",
-      "statusFinalizado": true,
+      "statusFinalizado": false,
       "prioridade": "Baixa"
     },
     {
       "id": 2,
       "descricao": "Estudar sobre acessibilidade",
       "categoria": "Trabalho",
-      "statusFinalizado": true,
+      "statusFinalizado": false,
       "prioridade": "Normal"
     },
     {
       "id": 4,
       "descricao": "Preencher formulário de inscrição",
       "categoria": "Estudos",
-      "statusFinalizado": true,
+      "statusFinalizado": false,
       "prioridade": "Normal"
     },
     {
       "id": 5,
       "descricao": "Trocar lâmpada",
       "categoria": "Casa",
-      "statusFinalizado": true,
+      "statusFinalizado": false,
       "prioridade": "Alta"
     },
     {

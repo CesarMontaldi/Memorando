@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { TarefaService } from 'src/app/service/tarefa.service';
 import { Tarefa } from '../interface/tarefa';
-import { checkButtonTrigger, highlightedStateTrigger, shownStateTrigger } from '../animations';
+import { checkButtonTrigger, filterTrigger, highlightedStateTrigger, shownStateTrigger } from '../animations';
 
 @Component({
   selector: 'app-lista-tarefas',
   templateUrl: './lista-tarefas.component.html',
   styleUrls: ['./lista-tarefas.component.css'],
-  animations: [highlightedStateTrigger, shownStateTrigger, checkButtonTrigger]
+  animations: [highlightedStateTrigger, shownStateTrigger, checkButtonTrigger, filterTrigger]
 
 
 })
@@ -21,6 +21,8 @@ export class ListaTarefasComponent implements OnInit {
   validado: boolean = false;
   indexTarefa = -1;
   id: number = 0;
+  campoBusca: string = '';
+  tafrefasFiltradas: Tarefa[] = [];
 
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
@@ -40,8 +42,19 @@ export class ListaTarefasComponent implements OnInit {
   ngOnInit(): Tarefa[] {
     this.service.listar(this.categoria).subscribe((listaTarefas) => {
       this.listaTarefas = listaTarefas;
+      this.tafrefasFiltradas = listaTarefas;
     });
-    return this.listaTarefas;
+    return this.tafrefasFiltradas;
+  }
+
+  filtrarTafrefasPorDescricao(descricao: string) {
+    this.campoBusca = descricao.trim().toLowerCase()
+    if (descricao) {
+      this.tafrefasFiltradas = this.listaTarefas.filter(tarefa =>
+        tarefa.descricao.toLowerCase().includes(this.campoBusca))
+    } else {
+      this.tafrefasFiltradas = this.listaTarefas
+    }
   }
 
   mostrarOuEsconderFormulario() {
@@ -124,7 +137,7 @@ export class ListaTarefasComponent implements OnInit {
 
   listarAposCheck() {
     this.service.listar(this.categoria).subscribe((listaTarefas) => {
-      this.listaTarefas = listaTarefas;
+      this.tafrefasFiltradas = listaTarefas;
     });
   }
 
