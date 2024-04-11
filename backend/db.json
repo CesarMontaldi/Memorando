@@ -34,6 +34,13 @@
       "statusFinalizado": false,
       "categoria": "Estudos",
       "prioridade": "Alta"
+    },
+    {
+      "id": 7,
+      "descricao": "Estudar Angular",
+      "categoria": "Estudos",
+      "statusFinalizado": false,
+      "prioridade": "Alta"
     }
   ]
 }

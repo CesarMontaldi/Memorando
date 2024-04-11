@@ -1,35 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TarefaService } from 'src/app/service/tarefa.service';
 import { Tarefa } from '../interface/tarefa';
-import { checkButtonTrigger, filterTrigger, highlightedStateTrigger, shownStateTrigger } from '../animations';
+import { checkButtonTrigger, filterTrigger, flyInOutTrigger, formButtonTrigger, highlightedStateTrigger, shownStateTrigger } from '../animations';
 
 @Component({
   selector: 'app-lista-tarefas',
   templateUrl: './lista-tarefas.component.html',
   styleUrls: ['./lista-tarefas.component.css'],
-  animations: [highlightedStateTrigger, shownStateTrigger, checkButtonTrigger, filterTrigger]
+  animations: [highlightedStateTrigger, shownStateTrigger, checkButtonTrigger, filterTrigger, formButtonTrigger, flyInOutTrigger]
 
 
 })
 export class ListaTarefasComponent implements OnInit {
   listaTarefas: Tarefa[] = [];
-  formAberto: boolean = false;
+  formAberto: boolean = true;
   categoria: string = '';
   validado: boolean = false;
+  campoDescricao: boolean = false;
   indexTarefa = -1;
   id: number = 0;
   campoBusca: string = '';
   tafrefasFiltradas: Tarefa[] = [];
 
+
   formulario: FormGroup = this.fomBuilder.group({
     id: [0],
-    descricao: ['', Validators.required],
+    descricao: ['', Validators.compose([
+      Validators.required,
+      Validators.minLength(3)])],
     statusFinalizado: [false, Validators.required],
-    categoria: ['', Validators.required],
-    prioridade: ['', Validators.required],
+    categoria: ['Casa', Validators.required],
+    prioridade: ['Alta', Validators.required],
   });
 
 
@@ -156,6 +160,18 @@ export class ListaTarefasComponent implements OnInit {
       return 'form-tarefa input-invalido';
     } else {
       this.validado = true;
+      return 'form-tarefa';
+    }
+  }
+
+  validaDescricao(): string {
+    if (
+      this.formulario.get('descricao')?.errors?.['minlength']
+    ) {
+      this.campoDescricao = false;
+      return 'form-tarefa input-invalido';
+    } else {
+      this.campoDescricao = true;
       return 'form-tarefa';
     }
   }

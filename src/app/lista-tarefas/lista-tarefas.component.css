@@ -371,6 +371,10 @@ select:focus, input:focus {
   background: #8AD4FF;
 }
 
+.message {
+  margin-top: -10px;
+}
+
 .ng-template {
   text-align: center;
   margin-top: 48px;

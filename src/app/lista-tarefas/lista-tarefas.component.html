@@ -4,20 +4,31 @@
       Criar nova tarefa
     </button>
   </div>
-  <form @shownState class="formulario ff-prompt"
+  <form @shownState
+    [@formButton]="formulario.valid ? 'valid' : 'invalid'"
+    class="formulario ff-prompt"
     [formGroup]="formulario"
     *ngIf="formAberto">
+
     <label for="descricao">Descrição da tarefa</label>
     <input required
       type="text"
       formControlName="descricao"
       placeholder="Digite a tarefa"
+      [ngClass]="validaDescricao()"
       [ngClass]="campoValidado('descricao')"
     >
-    <app-mensagem
-      *ngIf="!validado"
-      mensagemValidacao="Preencha a descrição">
-    </app-mensagem>
+    <div>
+      <app-mensagem
+        *ngIf="!campoDescricao"
+        mensagemValidacao="Descrição precisa ter no mínimo 3 caracteres!">
+      </app-mensagem>
+      <app-mensagem
+        *ngIf="!validado"
+        mensagemValidacao="Preencha a descrição">
+      </app-mensagem>
+    </div>
+
     <label for="prioridade">Prioridade</label>
     <select required
       formControlName="prioridade"
@@ -48,6 +59,7 @@
     </app-mensagem>
     <div class="botoes-form">
       <button
+        id="botao-salvar"
         (click)="salvarTarefa()"
         class="botao-form"
         [ngClass]="habilitarBotao()"
@@ -122,6 +134,6 @@
   </div>
 </section>
 <ng-template #semTarefas>
-  <p class="ng-template ff-prompt">Olá! Ainda não há tarefas por aqui! :)</p>
+  <p @flyInOut class="ng-template ff-prompt">Olá! Ainda não há tarefas por aqui! :)</p>
 </ng-template>
 
